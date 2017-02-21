@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Quote Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/ce92caa87b.js"></script>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="center-block img-rounded" style="background-color: white; width: 550px;margin-top: 50px; padding: 40px 50px">
+                <div class="center-block" id="info-div">
+                </div>
+                <div id="author">
+                    <span class="pull-right"></span>
+                </div>
+                <div>
+                    <div>
+                        <a></a>
+                    </div>
+                    <div style="margin-bottom: 10px" id="buttons" class="row" style="display: inline-block;">
+                        <div id="icon" class="col-md-6"></div>
+                        <div id="submit" class="col-md-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var randomQuote = function() {
+        var randomColor = function() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        };
+
+        var current = [];
+        current[0] = randomColor();
+        $.ajax({
+            url: "http://quotes.stormconsultancy.co.uk/quotes.json",
+            dataType: "jsonp",
+            cache: false,
+            success:function(data) {
+                console.log(data);
+                var i = Math.floor(Math.random() * 44)
+                $('body').css('background-color',''+current[0]+'');
+                $('#info-div').html('<i class="fa fa-quote-left fa-2x" aria-hidden="true" style="color: '+current[0]+'></i></a>');
+                $('#info-div').html('<span style="font-size: 1.75em; color: '+current[0]+'" id="span1">'+data[i].quote+'</span>');
+                $('#author').html('<p style="font-size: 1em; text-align: right; color: '+current[0]+'">- '+data[i].author+'</p>');
+                $('#icon').html('<a href="http://twitter.com"><i class="fa fa-twitter-square fa-2x btn" aria-hidden="true" style="color: '+current[0]+'"></i></a>');
+                $('#submit').html('<button class="btn btn-round pull-right" style="background-color: '+current[0]+'; color: white; height: 100%">New Quote</button>');
+            }
+        });
+    };
+    $(function() {
+        randomQuote();
+        $("#submit").on('click', randomQuote);
+    })
+    </script>
+</body>
+</html>
