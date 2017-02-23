@@ -47,12 +47,13 @@
             cache: false,
             success:function(data) {
                 console.log(data);
-                var i = Math.floor(Math.random() * 44)
+                var i = Math.floor(Math.random() * data.length)
                 $('body').css('background-color',''+current[0]+'');
                 $('#info-div').html('<i class="fa fa-quote-left fa-2x" aria-hidden="true" style="color: '+current[0]+'></i></a>');
                 $('#info-div').html('<span style="font-size: 1.75em; color: '+current[0]+'" id="span1">'+data[i].quote+'</span>');
                 $('#author').html('<p style="font-size: 1em; text-align: right; color: '+current[0]+'">- '+data[i].author+'</p>');
-                $('#icon').html('<a href="http://twitter.com"><i class="fa fa-twitter-square fa-2x btn" aria-hidden="true" style="color: '+current[0]+'"></i></a>');
+                $('#icon').html('<a href="https://twitter.com/intent/tweet?text='+data[i].quote+'"><i class="fa fa-twitter-square fa-2x btn" aria-hidden="true" style="color: '+current[0]+'"></i></a>');
+
                 $('#submit').html('<button class="btn btn-round pull-right" style="background-color: '+current[0]+'; color: white; height: 100%">New Quote</button>');
             }
         });
